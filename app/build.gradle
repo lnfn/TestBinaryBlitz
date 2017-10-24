@@ -1,8 +1,7 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 26
@@ -25,9 +24,47 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    //Android support library
+    implementation "com.android.support:appcompat-v7:$support_library"
+    implementation "com.android.support:design:$support_library"
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0-beta3'
+
+    //Moxy (MVP)
+    kapt "com.arello-mobile:moxy-compiler:$moxy"
+    implementation "com.arello-mobile:moxy-app-compat:$moxy"
+
+    //Cicerone
+    implementation 'ru.terrakok.cicerone:cicerone:2.1.0'
+
+    //Retrofit2
+    implementation "com.squareup.retrofit2:retrofit:$retrofit"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit"
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.0'
+
+    //Dagger2
+    implementation "com.google.dagger:dagger:$dagger"
+    kapt "com.google.dagger:dagger-compiler:$dagger"
+    implementation "com.google.dagger:dagger-android:$dagger"
+    kapt "com.google.dagger:dagger-android-processor:$dagger"
+    implementation "com.google.dagger:dagger-android-support:$dagger"
+
+    //RxJava2
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.5'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+
+    //Glide3
+    implementation "com.github.bumptech.glide:glide:3.8.0"
+
+    //Timber
+    implementation 'com.jakewharton.timber:timber:4.5.1'
+
+    //Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+
+
+    //Test
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
