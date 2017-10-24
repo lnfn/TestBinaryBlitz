@@ -1,7 +1,6 @@
 package com.eugenetereshkov.testbinaryblitz.di
 
 import com.eugenetereshkov.testbinaryblitz.di.scopes.FragmentScope
-import com.eugenetereshkov.testbinaryblitz.ui.CreateUserFragment
 import com.eugenetereshkov.testbinaryblitz.ui.EditUserFragment
 import com.eugenetereshkov.testbinaryblitz.ui.UsersListFragment
 import dagger.Module
@@ -15,10 +14,6 @@ interface MainActivityModule {
     @FragmentScope
     @ContributesAndroidInjector
     fun usersListFragmentInjector(): UsersListFragment
-
-    @FragmentScope
-    @ContributesAndroidInjector
-    fun createUserFragmentInjector(): CreateUserFragment
 
     @FragmentScope
     @ContributesAndroidInjector

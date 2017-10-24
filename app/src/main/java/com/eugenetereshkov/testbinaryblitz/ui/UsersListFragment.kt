@@ -30,6 +30,12 @@ class UsersListFragment : BaseFragment(), UsersListView, Injectable {
         toolbar.apply {
             title = getString(R.string.users_list)
             inflateMenu(R.menu.main_menu)
+            setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.addUserAction -> usersListPresenter.addUser()
+                }
+                true
+            }
         }
         recyclerView.apply {
             layoutManager = LinearLayoutManager(context)

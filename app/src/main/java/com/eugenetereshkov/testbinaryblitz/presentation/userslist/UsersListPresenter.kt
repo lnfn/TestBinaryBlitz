@@ -2,10 +2,12 @@ package com.eugenetereshkov.testbinaryblitz.presentation.userslist
 
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
+import com.eugenetereshkov.testbinaryblitz.Screens
 import com.eugenetereshkov.testbinaryblitz.entity.User
 import com.eugenetereshkov.testbinaryblitz.extentions.bindTo
 import com.eugenetereshkov.testbinaryblitz.model.repository.UserRepository
 import io.reactivex.disposables.CompositeDisposable
+import ru.terrakok.cicerone.Router
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -14,6 +16,7 @@ import javax.inject.Inject
  */
 @InjectViewState
 class UsersListPresenter @Inject constructor(
+        private val router: Router,
         private val userRepository: UserRepository
 ) : MvpPresenter<UsersListView>() {
 
@@ -45,5 +48,9 @@ class UsersListPresenter @Inject constructor(
     override fun onDestroy() {
         disposabe.clear()
         super.onDestroy()
+    }
+
+    fun addUser() {
+        router.navigateTo(Screens.EDIT_USER_SCREEN)
     }
 }

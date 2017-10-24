@@ -1,10 +1,11 @@
-package com.eugenetereshkov.testbinaryblitz
+package com.eugenetereshkov.testbinaryblitz.ui
 
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import com.arellomobile.mvp.MvpAppCompatActivity
-import com.eugenetereshkov.testbinaryblitz.ui.UsersListFragment
+import com.eugenetereshkov.testbinaryblitz.R
+import com.eugenetereshkov.testbinaryblitz.Screens
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
@@ -44,6 +45,7 @@ class MainActivity : MvpAppCompatActivity(), HasSupportFragmentInjector {
 
         override fun createFragment(screenKey: String?, data: Any?): Fragment? = when (screenKey) {
             Screens.USERS_LIST_SCREEN -> UsersListFragment()
+            Screens.EDIT_USER_SCREEN -> EditUserFragment()
             else -> null
         }
     }

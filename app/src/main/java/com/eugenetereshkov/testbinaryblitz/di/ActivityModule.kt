@@ -1,7 +1,7 @@
 package com.eugenetereshkov.testbinaryblitz.di
 
-import com.eugenetereshkov.testbinaryblitz.MainActivity
 import com.eugenetereshkov.testbinaryblitz.di.scopes.ActivityScope
+import com.eugenetereshkov.testbinaryblitz.ui.MainActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

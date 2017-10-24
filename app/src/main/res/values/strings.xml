@@ -3,6 +3,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="users_list">Users List</string>
+    <string name="users_list">Users list</string>
     <string name="add_user">Добавить пользователя</string>
+    <string name="edit_user">Edit user</string>
 </resources>

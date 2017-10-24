@@ -6,5 +6,6 @@ package com.eugenetereshkov.testbinaryblitz
 class Screens {
     companion object {
         const val USERS_LIST_SCREEN = "users_list_screen"
+        const val EDIT_USER_SCREEN = "edit_user_screen"
     }
 }
