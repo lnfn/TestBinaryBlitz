@@ -31,6 +31,7 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.0-beta3'
 
     //Moxy (MVP)
+    implementation 'com.android.support:support-v4:26.1.0'
     kapt "com.arello-mobile:moxy-compiler:$moxy"
     implementation "com.arello-mobile:moxy-app-compat:$moxy"
 
@@ -62,7 +63,6 @@ dependencies {
 
     //Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-
 
     //Test
     testImplementation 'junit:junit:4.12'
