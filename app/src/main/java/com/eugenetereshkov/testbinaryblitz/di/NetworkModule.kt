@@ -10,8 +10,10 @@ import dagger.Provides
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import java.lang.reflect.Modifier.*
+import java.lang.reflect.Modifier.STATIC
+import java.lang.reflect.Modifier.TRANSIENT
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -25,6 +27,7 @@ class NetworkModule {
     internal fun provideWalkwaysService(gson: Gson, okHttpClient: OkHttpClient) = Retrofit.Builder()
             .baseUrl(API_ENPOINT)
             .addConverterFactory(GsonConverterFactory.create(gson))
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(okHttpClient)
             .build()
             .create(BinaryBlitzApi::class.java)
@@ -44,7 +47,7 @@ class NetworkModule {
 
     @Provides
     internal fun provideGson() = GsonBuilder()
-            .excludeFieldsWithModifiers(FINAL, TRANSIENT, STATIC)
+            .excludeFieldsWithModifiers(TRANSIENT, STATIC)
             .serializeNulls()
             .create()
 }
