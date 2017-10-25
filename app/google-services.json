@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "635605546663",
+    "firebase_url": "https://testbinaryblitz.firebaseio.com",
+    "project_id": "testbinaryblitz",
+    "storage_bucket": "testbinaryblitz.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:635605546663:android:871caa671bcbd3bb",
+        "android_client_info": {
+          "package_name": "com.eugenetereshkov.testbinaryblitz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "635605546663-qtiu310fqbl5auvat930cl1qpq9bkis5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1RFfDo_1B1b2AW2CR7rdWi_4BGu87wFw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

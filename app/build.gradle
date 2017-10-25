@@ -31,11 +31,14 @@ dependencies {
 
     //Android support library
     implementation "com.android.support:appcompat-v7:$support_library"
+    implementation "com.android.support:support-v4:$support_library"
     implementation "com.android.support:design:$support_library"
     implementation 'com.android.support.constraint:constraint-layout:1.1.0-beta3'
 
+    //Firebase
+    implementation 'com.google.firebase:firebase-storage:11.4.2'
+
     //Moxy (MVP)
-    implementation 'com.android.support:support-v4:26.1.0'
     kapt "com.arello-mobile:moxy-compiler:$moxy"
     implementation "com.arello-mobile:moxy-app-compat:$moxy"
 
@@ -74,3 +77,4 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 }
+apply plugin: 'com.google.gms.google-services'

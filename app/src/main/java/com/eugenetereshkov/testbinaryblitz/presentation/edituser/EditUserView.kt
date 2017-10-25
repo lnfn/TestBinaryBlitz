@@ -16,4 +16,5 @@ interface EditUserView : MvpView {
     fun showErrorFirstName(msg: String)
     fun showErrorLastName(msg: String)
     fun showErrorEmail(msg: String)
+    fun setUploadImageProgress(percents: Int)
 }

@@ -1,5 +1,6 @@
 package com.eugenetereshkov.testbinaryblitz.presentation.edituser
 
+import android.net.Uri
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.eugenetereshkov.testbinaryblitz.R
@@ -13,9 +14,13 @@ import com.eugenetereshkov.testbinaryblitz.extentions.userMessage
 import com.eugenetereshkov.testbinaryblitz.extentions.validate
 import com.eugenetereshkov.testbinaryblitz.model.data.ResourceManager
 import com.eugenetereshkov.testbinaryblitz.model.repository.UserRepository
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageTask
+import com.google.firebase.storage.UploadTask
 import io.reactivex.disposables.CompositeDisposable
 import ru.terrakok.cicerone.Router
 import timber.log.Timber
+import java.io.File
 import javax.inject.Inject
 
 /**
@@ -31,6 +36,7 @@ class EditUserPresenter @Inject constructor(
 
     private val disposable = CompositeDisposable()
     val action: ACTION
+    private var storageTask: StorageTask<UploadTask.TaskSnapshot>? = null
 
     init {
         action = if (user.id == 0L) ACTION.CREATE else ACTION.EDIT
@@ -38,6 +44,29 @@ class EditUserPresenter @Inject constructor(
 
     override fun onFirstViewAttach() {
         if (action == ACTION.EDIT) viewState.showUserData(user)
+    }
+
+    fun uploadImageToServer(url: String) {
+        val file = Uri.fromFile(File(url))
+        Timber.d(url)
+        Timber.d(file.toString())
+        val firebaseStorage = FirebaseStorage.getInstance()
+        val storageRef = firebaseStorage.reference
+        val imageRef = storageRef.child("images/${file.lastPathSegment}")
+        val uploadTask = imageRef.putFile(file)
+        storageTask = uploadTask.addOnProgressListener({
+            val progress = 100.0 * it.bytesTransferred / it.totalByteCount
+            viewState.setUploadImageProgress(progress.toInt())
+
+        }).addOnCompleteListener({
+            if (it.isSuccessful) {
+                val downloadUrl = it.result.downloadUrl
+                user.avatarURL = downloadUrl?.toString()
+                viewState.showUserData(user)
+            } else {
+                router.showSystemMessage(resourceManager.getString(R.string.fail_image_upload))
+            }
+        })
     }
 
     fun saveUser(user: User) {
@@ -101,15 +130,12 @@ class EditUserPresenter @Inject constructor(
                 .bindTo(disposable)
     }
 
-    fun getImage() {
-
-    }
-
     fun onBackPressed() {
         router.exit()
     }
 
     override fun onDestroy() {
+        storageTask?.cancel()
         disposable.clear()
         super.onDestroy()
     }

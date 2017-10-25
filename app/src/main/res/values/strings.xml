@@ -16,4 +16,5 @@
     <string name="network_error">Network error</string>
     <string name="success">Success</string>
     <string name="empty_field">Empty field</string>
+    <string name="fail_image_upload">Fail image upload</string>
 </resources>
