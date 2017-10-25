@@ -15,3 +15,7 @@ fun ViewGroup.inflate(idResLayout: Int): View =
 fun Disposable.bindTo(disposable: CompositeDisposable) {
     disposable.add(this)
 }
+
+fun View.visible(visible: Boolean) {
+    visibility = if (visible) View.VISIBLE else View.GONE
+}

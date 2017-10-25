@@ -16,6 +16,6 @@ interface MainActivityModule {
     fun usersListFragmentInjector(): UsersListFragment
 
     @FragmentScope
-    @ContributesAndroidInjector
+    @ContributesAndroidInjector(modules = arrayOf(EditUserFragmentModule::class))
     fun editUserFragmentInjector(): EditUserFragment
 }

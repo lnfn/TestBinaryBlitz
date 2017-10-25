@@ -8,6 +8,7 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.eugenetereshkov.testbinaryblitz.R
 import com.eugenetereshkov.testbinaryblitz.di.Injectable
 import com.eugenetereshkov.testbinaryblitz.entity.User
+import com.eugenetereshkov.testbinaryblitz.extentions.visible
 import com.eugenetereshkov.testbinaryblitz.presentation.userslist.UsersListAdapter
 import com.eugenetereshkov.testbinaryblitz.presentation.userslist.UsersListPresenter
 import com.eugenetereshkov.testbinaryblitz.presentation.userslist.UsersListView
@@ -20,7 +21,9 @@ class UsersListFragment : BaseFragment(), UsersListView, Injectable {
     @InjectPresenter
     lateinit var usersListPresenter: UsersListPresenter
     override val idResLayout: Int = R.layout.fragment_users_list
-    private val adapter = UsersListAdapter()
+    private val adapter by lazy {
+        UsersListAdapter({ user -> usersListPresenter.onUserClicked(user) })
+    }
 
     @ProvidePresenter
     fun provideUsersListPresenter(): UsersListPresenter = usersListPresenter
@@ -42,11 +45,13 @@ class UsersListFragment : BaseFragment(), UsersListView, Injectable {
             setHasFixedSize(true)
             adapter = this@UsersListFragment.adapter
         }
+    }
 
-        usersListPresenter.getUsers()
+    override fun showEmptyLoading(show: Boolean) {
+        progressBar.visible(show)
     }
 
     override fun setItems(users: List<User>) {
-        adapter.updateItems(users)
+        recyclerView.post { adapter.updateItems(users) }
     }
 }

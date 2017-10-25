@@ -23,16 +23,15 @@ class UsersListPresenter @Inject constructor(
     private var data = listOf<User>()
     private val disposabe = CompositeDisposable()
 
-    fun getUsers() {
-        if (data.isEmpty()) {
-            loadFromNetwork()
-        }
-
+    override fun onFirstViewAttach() {
+        if (data.isEmpty()) loadFromNetwork()
         viewState.setItems(data)
     }
 
     private fun loadFromNetwork() {
         userRepository.getUsers()
+                .doOnSubscribe { viewState.showEmptyLoading(true) }
+                .doAfterTerminate { viewState.showEmptyLoading(false) }
                 .subscribe(
                         { users ->
                             data = users
@@ -52,5 +51,9 @@ class UsersListPresenter @Inject constructor(
 
     fun addUser() {
         router.navigateTo(Screens.EDIT_USER_SCREEN)
+    }
+
+    fun onUserClicked(user: User) {
+        router.navigateTo(Screens.EDIT_USER_SCREEN, user)
     }
 }

@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.target.BitmapImageViewTarget
 import com.eugenetereshkov.testbinaryblitz.R
 import com.eugenetereshkov.testbinaryblitz.entity.User
@@ -16,11 +17,13 @@ import kotlinx.android.synthetic.main.item_user.*
 /**
  * Created by eugenetereshkov on 24.10.2017.
  */
-class UsersListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class UsersListAdapter(
+        private val clickListener: (user: User) -> Unit
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val items = mutableListOf<User>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return UserViewHolder(parent.inflate(R.layout.item_user))
+        return UserViewHolder(parent.inflate(R.layout.item_user), clickListener)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -29,9 +32,13 @@ class UsersListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun getItemCount() = items.size
 
-    class UserViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView),
-            LayoutContainer {
+    class UserViewHolder(override val containerView: View, clickListener: (user: User) -> Unit) :
+            RecyclerView.ViewHolder(containerView), LayoutContainer {
         private lateinit var user: User
+
+        init {
+            containerView.setOnClickListener { clickListener.invoke(user) }
+        }
 
         fun bind(user: User) {
             this.user = user
@@ -41,6 +48,7 @@ class UsersListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             Glide.with(itemView.context)
                     .load(user.avatarURL)
                     .asBitmap()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .centerCrop()
                     .placeholder(R.drawable.circle)
                     .error(R.drawable.circle)

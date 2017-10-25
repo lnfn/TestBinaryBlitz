@@ -6,4 +6,9 @@
     <string name="users_list">Users list</string>
     <string name="add_user">Добавить пользователя</string>
     <string name="edit_user">Edit user</string>
+    <string name="save">Save</string>
+    <string name="create_user">Create user</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="email">Email</string>
 </resources>
