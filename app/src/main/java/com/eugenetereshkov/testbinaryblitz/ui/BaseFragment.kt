@@ -19,10 +19,25 @@ abstract class BaseFragment : MvpAppCompatFragment() {
         return inflater!!.inflate(idResLayout, container, false)
     }
 
+    protected fun showProgressDialog(progress: Boolean) {
+        val fragment = childFragmentManager?.findFragmentByTag(PROGRESS_TAG)
+        if (fragment != null && !progress) {
+            (fragment as ProgressDialog).dismissAllowingStateLoss()
+            childFragmentManager.executePendingTransactions()
+        } else if (fragment == null && progress) {
+            ProgressDialog().show(childFragmentManager, PROGRESS_TAG)
+            childFragmentManager.executePendingTransactions()
+        }
+    }
+
     protected fun hideKeyboard() {
         activity?.run {
             val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager?
             inputMethodManager?.hideSoftInputFromWindow(window?.currentFocus?.windowToken, 0)
         }
+    }
+
+    companion object {
+        private val PROGRESS_TAG = "bf_progress"
     }
 }

@@ -16,5 +16,5 @@ interface BinaryBlitzApi {
     fun createUser(@Body user: User): Single<ResponseBody>
 
     @PATCH("users/{id}.json")
-    fun editUser(@Path("id") userId: Long): Single<ResponseBody>
+    fun editUser(@Path("id") userId: Long, @Body user: User): Single<ResponseBody>
 }

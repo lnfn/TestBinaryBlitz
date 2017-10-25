@@ -24,8 +24,8 @@ class UserRepository @Inject constructor(
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
 
-    fun editUser(idUser: Long): Single<ResponseBody> =
-            binaryBlitzApi.editUser(idUser)
+    fun editUser(user: User): Single<ResponseBody> =
+            binaryBlitzApi.editUser(user.id, user)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
 }

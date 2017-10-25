@@ -12,4 +12,8 @@ import com.eugenetereshkov.testbinaryblitz.entity.User
 @StateStrategyType(AddToEndSingleStrategy::class)
 interface EditUserView : MvpView {
     fun showUserData(user: User)
+    fun showProgress(show: Boolean)
+    fun showErrorFirstName(msg: String)
+    fun showErrorLastName(msg: String)
+    fun showErrorEmail(msg: String)
 }

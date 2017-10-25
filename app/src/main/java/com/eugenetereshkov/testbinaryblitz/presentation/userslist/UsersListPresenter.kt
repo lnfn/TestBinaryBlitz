@@ -6,6 +6,7 @@ import com.eugenetereshkov.testbinaryblitz.Screens
 import com.eugenetereshkov.testbinaryblitz.entity.User
 import com.eugenetereshkov.testbinaryblitz.extentions.bindTo
 import com.eugenetereshkov.testbinaryblitz.model.repository.UserRepository
+import com.eugenetereshkov.testbinaryblitz.presentation.edituser.EditUserPresenter
 import io.reactivex.disposables.CompositeDisposable
 import ru.terrakok.cicerone.Router
 import timber.log.Timber
@@ -26,11 +27,15 @@ class UsersListPresenter @Inject constructor(
     override fun onFirstViewAttach() {
         if (data.isEmpty()) loadFromNetwork()
         viewState.setItems(data)
+
+        router.setResultListener(EditUserPresenter.EDIT_USER_RESULT, {
+            if (it as Boolean) loadFromNetwork()
+        })
     }
 
     private fun loadFromNetwork() {
         userRepository.getUsers()
-                .doOnSubscribe { viewState.showEmptyLoading(true) }
+                .doOnSubscribe { if (data.isEmpty()) viewState.showEmptyLoading(true) }
                 .doAfterTerminate { viewState.showEmptyLoading(false) }
                 .subscribe(
                         { users ->
@@ -45,6 +50,7 @@ class UsersListPresenter @Inject constructor(
     }
 
     override fun onDestroy() {
+        router.removeResultListener(EditUserPresenter.EDIT_USER_RESULT)
         disposabe.clear()
         super.onDestroy()
     }

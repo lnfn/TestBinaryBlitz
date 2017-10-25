@@ -11,4 +11,9 @@
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
     <string name="email">Email</string>
+    <string name="unprocessable_error">Unprocessable Entity</string>
+    <string name="unknown_error">Unknown error</string>
+    <string name="network_error">Network error</string>
+    <string name="success">Success</string>
+    <string name="empty_field">Empty field</string>
 </resources>

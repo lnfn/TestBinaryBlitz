@@ -44,7 +44,13 @@ class EditUserFragment : BaseFragment(), Injectable, EditUserView {
             inflateMenu(R.menu.edit_menu)
             setOnMenuItemClickListener {
                 when (it.itemId) {
-                    R.id.saveUserAction -> editUserPresenter.saveUser()
+                    R.id.saveUserAction -> editUserPresenter.saveUser(
+                            User(
+                                    firstName = firstNameEditText.text.toString(),
+                                    lastName = lastNameEditText.text.toString(),
+                                    email = emailEditText.text.toString()
+                            )
+                    )
                 }
                 true
             }
@@ -67,7 +73,7 @@ class EditUserFragment : BaseFragment(), Injectable, EditUserView {
     override fun showUserData(user: User) {
         firstNameEditText.setText(user.firstName)
         lastNameEditText.setText(user.lastName)
-        user.email?.let { emailEditText.setText(it) }
+        emailEditText.setText(user.email)
 
         Glide.with(context)
                 .load(user.avatarURL)
@@ -86,6 +92,23 @@ class EditUserFragment : BaseFragment(), Injectable, EditUserView {
                         }
                     }
                 })
+    }
+
+    override fun showProgress(show: Boolean) {
+        hideKeyboard()
+        showProgressDialog(show)
+    }
+
+    override fun showErrorFirstName(msg: String) {
+        firstNameTextInput.error = msg
+    }
+
+    override fun showErrorLastName(msg: String) {
+        lastNameTextInput.error = msg
+    }
+
+    override fun showErrorEmail(msg: String) {
+        emailTextInput.error = msg
     }
 
     companion object {

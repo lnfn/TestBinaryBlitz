@@ -9,10 +9,10 @@ import kotlinx.android.parcel.Parcelize
  */
 @Parcelize
 data class User(
-        @SerializedName("id") val id: Long = 0,
-        @SerializedName("first_name") val firstName: String = "",
-        @SerializedName("last_name") val lastName: String = "",
-        @SerializedName("email") val email: String? = null,
-        @SerializedName("avatar_url") val avatarURL: String? = null,
-        @SerializedName("url") val url: String = ""
+        @SerializedName("id") var id: Long = 0,
+        @SerializedName("first_name") var firstName: String = "",
+        @SerializedName("last_name") var lastName: String = "",
+        @SerializedName("email") var email: String = "",
+        @SerializedName("avatar_url") var avatarURL: String? = null,
+        @SerializedName("url") var url: String = ""
 ) : Parcelable
