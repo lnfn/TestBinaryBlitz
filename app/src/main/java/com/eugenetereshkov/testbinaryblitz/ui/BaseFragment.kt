@@ -30,6 +30,16 @@ abstract class BaseFragment : MvpAppCompatFragment() {
         }
     }
 
+    protected fun showKeyboard() {
+        activity?.run {
+            val view = window?.currentFocus
+            view?.post {
+                val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager?
+                inputMethodManager?.showSoftInput(view, 0)
+            }
+        }
+    }
+
     protected fun hideKeyboard() {
         activity?.run {
             val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager?

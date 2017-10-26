@@ -11,8 +11,6 @@ import android.provider.MediaStore
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory
-import android.view.View
-import android.view.inputmethod.InputMethodManager
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.bumptech.glide.Glide
@@ -73,7 +71,8 @@ class EditUserFragment : BaseFragment(), Injectable, EditUserView {
                 }
             }
 
-        showKeyboard(firstNameEditText)
+        firstNameEditText.requestFocus()
+        showKeyboard()
     }
 
     override fun setUploadImageProgress(percents: Int) {
@@ -105,14 +104,6 @@ class EditUserFragment : BaseFragment(), Injectable, EditUserView {
         if (requestCode == REQUEST_READ_EXTERNAL_STORAGE && grantResults.isNotEmpty() &&
                 grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             makePickRequest()
-        }
-    }
-
-    private fun showKeyboard(view: View) {
-        view.post {
-            view.requestFocus()
-            val inputMethodManager = activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-            inputMethodManager.showSoftInput(view, 0)
         }
     }
 
