@@ -13,6 +13,8 @@ import dagger.android.support.HasSupportFragmentInjector
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.Router
 import ru.terrakok.cicerone.android.SupportAppNavigator
+import ru.terrakok.cicerone.commands.Command
+import ru.terrakok.cicerone.commands.Replace
 import javax.inject.Inject
 
 class MainActivity : MvpAppCompatActivity(), HasSupportFragmentInjector {
@@ -48,6 +50,17 @@ class MainActivity : MvpAppCompatActivity(), HasSupportFragmentInjector {
             Screens.USERS_LIST_SCREEN -> UsersListFragment()
             Screens.EDIT_USER_SCREEN -> EditUserFragment.newInstants(data as? User ?: User())
             else -> null
+        }
+
+        override fun applyCommand(command: Command) {
+            when (command) {
+                is Replace -> {
+                    supportFragmentManager.beginTransaction()
+                            .add(R.id.container, UsersListFragment(), Screens.USERS_LIST_SCREEN)
+                            .commit()
+                }
+                else -> super.applyCommand(command)
+            }
         }
     }
 }
